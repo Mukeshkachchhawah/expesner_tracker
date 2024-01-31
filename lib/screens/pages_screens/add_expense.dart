@@ -40,6 +40,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
           child: Column(
            
             children: [
+              hSpeace(mHeight: 50),
               AmountTextFild(),
               hSpeace(mHeight: 25),
               Row(
@@ -105,7 +106,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                   labelText: 'Category',
                 ),
               ),
-              hSpeace(mHeight: 25),
+              hSpeace(mHeight: 50),
               SizedBox(
                 width: double.infinity,
                 height: 50,
