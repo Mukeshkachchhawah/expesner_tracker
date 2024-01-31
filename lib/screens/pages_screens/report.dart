@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class DataReportScreen extends StatelessWidget {
@@ -11,9 +12,7 @@ class DataReportScreen extends StatelessWidget {
         0, (previousValue, element) => previousValue + element['amount']);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Report Expense"),
-      ),
+      appBar: AppBar(title: Text("Report Expesne"),),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -49,3 +48,5 @@ class DataReportScreen extends StatelessWidget {
     );
   }
 }
+
+

@@ -3,6 +3,9 @@ import 'package:expense_tracker/screens/onbording%20screens/bottomBar_screens.da
 import 'package:expense_tracker/ui_helper.dart';
 import 'package:flutter/material.dart';
 
+import 'package:expense_tracker/modal/category_list.dart';
+import 'package:flutter/material.dart';
+
 class AddExpenseScreen extends StatefulWidget {
   final Function(String, double) addExpense;
   String selectedCategory;
@@ -20,7 +23,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
   /// clear inpute TextFild amount and clear category
   void clearFields() {
     setState(() {
-      amount = 0.0;
+      amount = 00;
       category = '';
     });
   }
@@ -29,29 +32,37 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Expesne"),
+        title: Text("Add Expese"),
       ),
       body: SingleChildScrollView(
-        physics: NeverScrollableScrollPhysics(),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(16.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
+           
             children: [
               AmountTextFild(),
-              hSpeace(),
-              Text(
-                'Selected Category: $category',
-                style: TextStyle(fontSize: 16.0),
+              hSpeace(mHeight: 25),
+              Row(
+                children: [
+                  Text(
+                    'Selected Category:',
+                    style: textStyle20(),
+                  ),
+                  wSpeace(mwidth: 5),
+                  Text(
+                    "$category",
+                    style: textStyle20(colors: Colors.red),
+                  ),
+                ],
               ),
-              SizedBox(height: 16.0),
+              hSpeace(mHeight: 25),
               GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 4,
-                  crossAxisSpacing: 8.0,
-                  mainAxisSpacing: 8.0,
+                  crossAxisSpacing: 15.0,
+                  mainAxisSpacing: 15.0,
                 ),
+                padding: EdgeInsets.zero,
                 shrinkWrap: true,
                 itemCount: categories.length,
                 itemBuilder: (context, index) {
@@ -71,13 +82,17 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       child: Center(
-                        child: Text(categories[index]),
+                        child: Text(
+                          categories[index],
+                          style: textStyle16(),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
                   );
                 },
               ),
-              SizedBox(height: 16.0),
+              hSpeace(mHeight: 25),
               TextField(
                 keyboardType: TextInputType.text,
                 onChanged: (value) {
@@ -86,31 +101,39 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                   });
                 },
                 decoration: InputDecoration(
+                  border: OutlineInputBorder(),
                   labelText: 'Category',
                 ),
               ),
-              hSpeace(),
-              ElevatedButton(
-                onPressed: () {
-                  if (amount > 0 && category.isNotEmpty) {
-                    widget.addExpense(category, amount);
-                    // clear textfild and catgory
-                    clearFields();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Expense added successfully'),
-                      ),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Please enter valid category and amount'),
-                      ),
-                    );
-                  }
-                },
-                child: Text('Add Expense'),
-              ),
+              hSpeace(mHeight: 25),
+              SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (amount > 0 && category.isNotEmpty) {
+                      widget.addExpense(category, amount);
+                      clearFields();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Expense added successfully'),
+                        ),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content:
+                              Text('Please enter valid category and amount'),
+                        ),
+                      );
+                    }
+                  },
+                  child: Text(
+                    'Add Expense',
+                    style: textStyle16(),
+                  ),
+                ),
+              )
             ],
           ),
         ),
@@ -119,10 +142,8 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
   }
 
   Widget AmountTextFild() {
-    return
-
-        /// input textform field
-        TextFormField(
+    /// input textform field
+    return TextFormField(
       style: textStyle80(),
       keyboardType: TextInputType.number,
       onChanged: (value) {

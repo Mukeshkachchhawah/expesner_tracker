@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget hSpeace({double mHeight = 20.0}) {
+Widget hSpeace({double mHeight = 25.0}) {
   return SizedBox(
     height: mHeight,
   );
@@ -12,8 +12,11 @@ Widget wSpeace({double mwidth = 15.0}) {
   );
 }
 
-TextStyle textStyle20() {
-  return const TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
+TextStyle textStyle16() {
+  return const TextStyle(fontSize: 16, fontWeight: FontWeight.bold);
+}
+TextStyle textStyle20({colors = Colors.black}) {
+  return  TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: colors);
 }
 
 TextStyle textStyle80() {
