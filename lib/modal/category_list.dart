@@ -1,4 +1,4 @@
-const List<String> categories = [
+List<String> categories = [
   'Food',
   'Health insurance',
   'Emergency fund',
