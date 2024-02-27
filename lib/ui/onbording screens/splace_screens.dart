@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:expense_tracker/screens/onbording%20screens/bottomBar_screens.dart';
+import 'package:expense_tracker/ui/onbording%20screens/bottomBar_screens.dart';
 import 'package:expense_tracker/ui_helper.dart';
 import 'package:flutter/material.dart';
 

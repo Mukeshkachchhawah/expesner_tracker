@@ -9,8 +9,10 @@ class AddExpenseEvent extends ExpenseEvent {
   final double amount; */
   ExpenseModal newExpense;
 
-  AddExpenseEvent({required this.newExpense,});
+  AddExpenseEvent({
+    required this.newExpense,
+  });
 }
 
 /// fatchallExpense
-class FatchAllExpenseEvent extends ExpenseEvent {}
+class FetchAllExpenseEvent extends ExpenseEvent {}

@@ -5,7 +5,7 @@ abstract class ExpenseState {}
 
 class ExpenseInitialState extends ExpenseState {}
 
-class ExpenseLodingState extends ExpenseState {}
+class ExpenseLoadingState extends ExpenseState {}
 
 class ExpenseLoadedState extends ExpenseState {
   // Check Database folder
@@ -14,7 +14,7 @@ class ExpenseLoadedState extends ExpenseState {
   ExpenseLoadedState({required this.arrExpenses});
 }
 
-class ExpenseErroState extends ExpenseState {
+class ExpenseErrorState extends ExpenseState {
   String errorMsg;
-  ExpenseErroState({required this.errorMsg});
+  ExpenseErrorState({required this.errorMsg});
 }
