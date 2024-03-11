@@ -1,4 +1,7 @@
+// ignore_for_file: avoid_print
+
 import 'package:expense_tracker/network/api/report_api.dart';
+import 'package:expense_tracker/repository/categery_repository.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart';
@@ -7,7 +10,7 @@ class ExpenseRepository implements ReportApi {
   Database database;
   ExpenseRepository(this.database);
 
-  static const tableName = "dbReportNewone";
+  static const tableName = "dbReportNewFoure";
 //var USER_COLUMN_ID = "uid";
   // static const expId = "exp_id";
 
@@ -17,22 +20,25 @@ class ExpenseRepository implements ReportApi {
   static const monthColumn = "month_group_name";
   static const dateColumn = "date";
   static const numberOfWeekColumn = "number_of_week";
+  static const yearColumn = "year";
 
   @override
   addExpense({
     required int amount,
     required int categoryId,
     required int numberOfWeekSelected,
+    required int year,
     required DateTime selectedDate,
   }) async {
     // Format the month name using intl package
-    String monthName = DateFormat('MMMM').format(selectedDate);
+    String monthName = DateFormat('MMMM yyyy').format(selectedDate);
     var status = await database.insert(tableName, {
       amountColumn: amount,
       categoryIdColumn: categoryId,
       dateColumn: selectedDate.millisecondsSinceEpoch,
       monthColumn: monthName,
-      numberOfWeekColumn: numberOfWeekSelected
+      numberOfWeekColumn: numberOfWeekSelected,
+      yearColumn: year
     });
     print("QUERY EXECUTE STATUS $status");
   }
@@ -52,7 +58,8 @@ class ExpenseRepository implements ReportApi {
         ' $categoryIdColumn TEXT,'
         ' $dateColumn int,'
         ' $numberOfWeekColumn int,'
-        ' $monthColumn TEXT'
+        ' $monthColumn TEXT,'
+        ' $yearColumn int'
         ')';
     print("Quary ==> $quary");
 
@@ -69,23 +76,39 @@ class ExpenseRepository implements ReportApi {
     throw UnimplementedError();
   }
 
+  // @override
+  // Future<List<Map<String, Object?>>> fetchExpenseByMonth(String month) async {
+  //   return await database
+  //       .query(tableName, where: '$monthColumn =?', whereArgs: [month]);
+  // }
+
   @override
   Future<List<Map<String, Object?>>> fetchExpenseByMonth(String month) async {
-    return await database
-        .query(tableName, where: '$monthColumn =?', whereArgs: [month]);
+    var res = await database.rawQuery('''
+    SELECT reports.*,
+           categories.*
+    FROM ${tableName} AS reports
+    INNER JOIN ${CategoryRepository.tableName} AS categories ON reports.${categoryIdColumn} = categories.id WHERE reports.${monthColumn} = ? ORDER BY reports.${dateColumn}''',
+        [month]);
+    return res;
   }
 
   @override
-  Future<List<Map<String, Object?>>> fetchMonthExpense() async {
+  Future<List<Map<String, Object?>>> fetchMonthListExpense(int year) async {
     // Use the strftime function to extract the month from the date column
-    List<Map<String, dynamic>> result = await database.rawQuery(
-      'SELECT DISTINCT $monthColumn FROM $tableName',
-    );
+    // List<Map<String, dynamic>> result = await database.rawQuery('''
+    //   SELECT *, SUM(${amountColumn}) as totalAmount
+    //   FROM $tableName
+    //   GROUP BY ${monthColumn} ORDER BY $dateColumn
+    // ''');
 
-    // Extract the month values from the result
-    // List<String> months =
-    //     result.map((row) => row['month_group_name'].toString()).toList();
+    List<Map<String, dynamic>> result = await database.rawQuery('''
+      SELECT *, SUM(${amountColumn}) as totalAmount
+      FROM $tableName WHERE $yearColumn = ?
+      GROUP BY ${monthColumn} ORDER BY $dateColumn
+    ''', [year]);
 
+    print('MONTH REPOST ${result}');
     return result;
   }
 

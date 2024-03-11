@@ -41,7 +41,8 @@ class ExpenseViewModel extends ChangeNotifier {
         amount: int.parse(amountController.text),
         categoryId: category,
         selectedDate: selectedDate.value!,
-        numberOfWeekSelected: weekNum);
+        numberOfWeekSelected: weekNum,
+        year: selectedDate.value?.year ?? 0);
     clearFields();
   }
 
@@ -56,9 +57,9 @@ class ExpenseViewModel extends ChangeNotifier {
     });
   }
 
-  fetchMonthsReport() {
-    expenseRepository.fetchMonthExpense().then((value) {
-      print('TOTAL REPORT FETCH monthList ${monthList.value.length}');
+  fetchMonthList() {
+    expenseRepository.fetchMonthListExpense(2024).then((value) {
+      // print('TOTAL REPORT FETCH monthList ${monthList.value.length}');
       monthList.value = value;
     });
   }

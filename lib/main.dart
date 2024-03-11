@@ -1,8 +1,6 @@
-import 'package:expense_tracker/bloc/expense_bloc.dart';
 import 'package:expense_tracker/database/db_helper.dart';
 import 'package:expense_tracker/ui/onbording%20screens/splace_screens.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 Future<void> main() async {

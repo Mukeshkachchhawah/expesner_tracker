@@ -2,7 +2,6 @@ import 'package:expense_tracker/provider/vm_categery.dart';
 import 'package:expense_tracker/ui/pages_screens/categery_view_modal.dart';
 import 'package:expense_tracker/ui_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CategryPage extends ConsumerStatefulWidget {

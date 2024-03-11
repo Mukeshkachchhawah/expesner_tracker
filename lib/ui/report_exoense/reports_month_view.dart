@@ -1,16 +1,10 @@
-import 'package:expense_tracker/models/report/report_week_model.dart';
-import 'package:expense_tracker/ui/report_exoense/days_expence_list.dart';
-import 'package:flutter/material.dart';
-import 'package:expense_tracker/modal/month_wish_modal.dart';
-import 'package:expense_tracker/modal/week_wish_modal.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:grouped_list/grouped_list.dart';
-import 'package:intl/intl.dart';
+// ignore_for_file: must_be_immutable
 
-import '../../models/report/report_days_model.dart';
-import '../../models/report/report_model.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../provider/vm_provider.dart';
 import 'report_view.dart';
+import 'report_view_model.dart';
 
 class ReportsMonthView extends ConsumerStatefulWidget {
   ReportsMonthView();
@@ -22,10 +16,17 @@ class ReportsMonthView extends ConsumerStatefulWidget {
 }
 
 class _ReportsMonthViewState extends ConsumerState<ReportsMonthView> {
+  late ExpenseViewModel provider;
+  @override
+  void initState() {
+    provider = ref.read(reportVm);
+    provider.fetchMonthList();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final provider = ref.watch(reportVm);
-    provider.fetchMonthsReport();
+    provider.fetchMonthList();
     return Scaffold(
         appBar: AppBar(
           title: const Text("Report Expense"),
@@ -37,7 +38,7 @@ class _ReportsMonthViewState extends ConsumerState<ReportsMonthView> {
               itemCount: value.length,
               itemBuilder: (context, index) {
                 final reportItem = value[index];
-
+                final monthYear = reportItem['month_group_name'].toString();
                 print('reort ${reportItem}');
                 return ListTile(
                   onTap: () {
@@ -50,13 +51,13 @@ class _ReportsMonthViewState extends ConsumerState<ReportsMonthView> {
                         ));
                   },
                   title: Text(
-                    '${reportItem['month_group_name']}',
+                    '${monthYear.split(' ').first}',
                     style: const TextStyle(
                         fontSize: 20.0, fontWeight: FontWeight.bold),
                   ),
                   subtitle: Text(''),
                   trailing: Text(
-                    'Total: \₹ ${'1234'}',
+                    'Total: \₹ ${reportItem['totalAmount']}',
                     style: const TextStyle(
                         fontSize: 20.0, fontWeight: FontWeight.bold),
                   ),

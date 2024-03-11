@@ -1,19 +1,16 @@
-import 'package:expense_tracker/models/report/report_week_model.dart';
-import 'package:expense_tracker/ui/report_exoense/days_expence_list.dart';
+// ignore_for_file: must_be_immutable, avoid_print, unused_element
+
 import 'package:flutter/material.dart';
-import 'package:expense_tracker/modal/month_wish_modal.dart';
 import 'package:expense_tracker/modal/week_wish_modal.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:intl/intl.dart';
 
-import '../../models/report/report_days_model.dart';
-import '../../models/report/report_model.dart';
 import '../../provider/vm_provider.dart';
 
 class ReportView extends ConsumerStatefulWidget {
   final String monthName;
-  ReportView({required this.monthName});
+  ReportView({super.key, required this.monthName});
 
   String? dropdownValue;
 
@@ -42,6 +39,12 @@ class _ReportViewState extends ConsumerState<ReportView> {
     return Scaffold(
         appBar: AppBar(
           title: Text("Report Expense : ${widget.monthName}"),
+          actions: [
+            DropdownButton(
+              items: [],
+              onChanged: (value) {},
+            )
+          ],
         ),
         body: ValueListenableBuilder(
           valueListenable: provider.allReport,
@@ -52,9 +55,18 @@ class _ReportViewState extends ConsumerState<ReportView> {
               groupSeparatorBuilder: (int groupByValue) =>
                   Text("Week $groupByValue"),
               itemBuilder: (context, dynamic element) {
+                print('expense data ${element}');
                 return ListTile(
-                  title: Text('${element['exp_cat_id']}'),
-                  trailing: Text(element['exp_amt'].toString()),
+                  title: Text('${element['categoryName']}'),
+                  trailing: Column(
+                    children: [
+                      Text(DateFormat('dd MMMM yyyy')
+                          .format(DateTime.fromMillisecondsSinceEpoch(
+                              element['date']))
+                          .toString()),
+                      Text(element['exp_amt'].toString()),
+                    ],
+                  ),
                 );
               },
               //  itemComparator: (item1, item2) => item1['name'].compareTo(item2['name']), // optional
@@ -142,32 +154,6 @@ class _ReportViewState extends ConsumerState<ReportView> {
       // weeklyExpenses.sort((a, b) => a.date.compareTo(b.date));
 
       List<WeekWiseExpenses> result = [];
-      // DateTime currentWeekStart = weeklyExpenses.first.date;
-      // double currentWeekTotal = 0;
-
-      // for (Expense expense in weeklyExpenses) {
-      //   if (expense.date.difference(currentWeekStart).inDays >= 7) {
-      //     result.add(WeekWiseExpenses(
-      //       weekStartDate: currentWeekStart,
-      //       weekEndDate: currentWeekStart.add(const Duration(days: 6)),
-      //       totalExpense: currentWeekTotal,
-      //     ));
-      //     currentWeekStart = expense.date;
-      //     currentWeekTotal = 0;
-      //   }
-
-      //   currentWeekTotal += expense.amount;
-      // }
-
-      // result.add(WeekWiseExpenses(
-      //   weekStartDate: currentWeekStart,
-      //   weekEndDate: currentWeekStart.add(const Duration(days: 6)),
-      //   totalExpense: currentWeekTotal,
-      // ));
-
-      // setState(() {
-      //   weekWiseExpenses = result;
-      // });
 
       return result;
     } catch (e, stackTrace) {

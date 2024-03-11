@@ -1,12 +1,14 @@
 abstract class ReportApi {
   createTable();
-  addExpense(
-      {required int amount,
-      required int categoryId,
-      required DateTime selectedDate,
-      required int numberOfWeekSelected});
+  addExpense({
+    required int amount,
+    required int categoryId,
+    required DateTime selectedDate,
+    required int numberOfWeekSelected,
+    required int year,
+  });
   fetchExpenseByMonth(String month);
-  fetchMonthExpense();
+  fetchMonthListExpense(int year);
   deleteExpense();
   updateExpense();
 }
