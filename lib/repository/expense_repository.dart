@@ -1,8 +1,7 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, unnecessary_brace_in_string_interps, empty_catches
 
 import 'package:expense_tracker/network/api/report_api.dart';
 import 'package:expense_tracker/repository/categery_repository.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -11,8 +10,6 @@ class ExpenseRepository implements ReportApi {
   ExpenseRepository(this.database);
 
   static const tableName = "dbReportNewFoure";
-//var USER_COLUMN_ID = "uid";
-  // static const expId = "exp_id";
 
   static const amountColumn = "exp_amt";
 
@@ -72,15 +69,8 @@ class ExpenseRepository implements ReportApi {
 
   @override
   deleteExpense() {
-    // TODO: implement deleteExpense
     throw UnimplementedError();
   }
-
-  // @override
-  // Future<List<Map<String, Object?>>> fetchExpenseByMonth(String month) async {
-  //   return await database
-  //       .query(tableName, where: '$monthColumn =?', whereArgs: [month]);
-  // }
 
   @override
   Future<List<Map<String, Object?>>> fetchExpenseByMonth(String month) async {
@@ -108,13 +98,12 @@ class ExpenseRepository implements ReportApi {
       GROUP BY ${monthColumn} ORDER BY $dateColumn
     ''', [year]);
 
-    print('MONTH REPOST ${result}');
+    print('MONTH REPORT ${result}');
     return result;
   }
 
   @override
   updateExpense() {
-    // TODO: implement updateExpense
     throw UnimplementedError();
   }
 }

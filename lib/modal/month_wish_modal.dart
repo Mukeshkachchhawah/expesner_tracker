@@ -30,12 +30,12 @@ class MonthWishModal {
 }
 
 ///////// Filter Expensce weekly /////////////
-class FilterExpensceModal {
+class FilterExpensesModal {
   String date;
   String amount;
   List<ExpenseModal> arrExpenseModal;
 
-  FilterExpensceModal(
+  FilterExpensesModal(
       {required this.date,
       required this.amount,
       required this.arrExpenseModal});

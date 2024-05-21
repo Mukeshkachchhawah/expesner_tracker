@@ -7,7 +7,7 @@ import 'report_view.dart';
 import 'report_view_model.dart';
 
 class ReportsMonthView extends ConsumerStatefulWidget {
-  ReportsMonthView();
+  ReportsMonthView({super.key});
 
   String? dropdownValue;
 
@@ -29,7 +29,7 @@ class _ReportsMonthViewState extends ConsumerState<ReportsMonthView> {
     provider.fetchMonthList();
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Report Expense"),
+          title: const Text("Report Expense Month"),
         ),
         body: ValueListenableBuilder(
           valueListenable: provider.monthList,

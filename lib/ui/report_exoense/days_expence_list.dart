@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:expense_tracker/provider/vm_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,14 +19,13 @@ class DaysListExpenseView extends ConsumerWidget {
                 var reportItem = list[index];
 
                 print('item $reportItem');
-                int date = reportItem['date'] as int;
                 return ListTile(
                   title: Text(reportItem['month_group_name'].toString()),
                   subtitle: Text('${reportItem['exp_cat_id']}'),
                   trailing: Text(reportItem['exp_amt'].toString()),
                 );
               },
-              separatorBuilder: (context, index) => Divider(),
+              separatorBuilder: (context, index) => const Divider(),
               itemCount: list.length);
         });
   }

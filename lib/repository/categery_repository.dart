@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:expense_tracker/network/api/categery_api.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -41,7 +43,6 @@ class CategoryRepository implements CategoryApi {
 
   @override
   deleteCategory() {
-    // TODO: implement deleteCategory
     throw UnimplementedError();
   }
 
@@ -55,7 +56,6 @@ class CategoryRepository implements CategoryApi {
 
   @override
   updateCategory() {
-    // TODO: implement updateCategory
     throw UnimplementedError();
   }
 }

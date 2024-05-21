@@ -4,32 +4,34 @@ import 'package:expense_tracker/ui_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CategryPage extends ConsumerStatefulWidget {
+class CategoryPage extends ConsumerStatefulWidget {
+  const CategoryPage({super.key});
+
   @override
-  ConsumerState createState() => _CategryPageState();
+  ConsumerState createState() => _CategoryPageState();
 }
 
-class _CategryPageState extends ConsumerState<CategryPage> {
+class _CategoryPageState extends ConsumerState<CategoryPage> {
   @override
   Widget build(BuildContext context) {
     final categoryViewModel = ref.read(categoryVm);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Expense Category"),
+        title: const Text("Add Expense Category"),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             hSpeace(),
-            SizedBox(height: 20),
-            InputTextFild(categoryViewModel),
+            const SizedBox(height: 20),
+            inputTextFile(categoryViewModel),
             hSpeace(),
             ElevatedButton(
               onPressed: () {
                 categoryViewModel.addCategory();
               },
-              child: Text('Add Category'),
+              child: const Text('Add Category'),
             ),
           ],
         ),
@@ -37,13 +39,13 @@ class _CategryPageState extends ConsumerState<CategryPage> {
     );
   }
 
-  /// add new catgeory
+  /// add new category
 
-  Widget InputTextFild(CategoryViewModal categoryViewModal) {
+  Widget inputTextFile(CategoryViewModal categoryViewModal) {
     return TextField(
       controller: categoryViewModal.categoryController,
       keyboardType: TextInputType.text,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
           border: OutlineInputBorder(),
           labelText: 'New Category',
           hintText: "Add New Category"),

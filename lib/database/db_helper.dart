@@ -1,18 +1,15 @@
-import 'package:expense_tracker/modal/expesno_modal.dart';
+// ignore_for_file: constant_identifier_names, unused_local_variable, avoid_print
+
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 
 class AppDatabase {
   AppDatabase._();
-
   static const EXPENSE_TABLE = "expense";
 //var USER_COLUMN_ID = "uid";
   static const EXPENSE_COLUMN_ID = "exp_id";
-
   static const EXPENSE_COLUMN_AMT = "exp_amt";
-
   static const EXPENSE_COLUMN_CAT_ID = "exp_cat_id";
-
   static Database? database;
   static Future<void> openDB() async {
     //directory path
@@ -40,27 +37,4 @@ class AppDatabase {
   static Database getDataBase() {
     return database!;
   }
-
-  //// function in Expense App /////
-  ///add New Expense
-
-  // Future<bool> addNewNote(ExpenseModal newExpense) async {
-  //   var check = await db.insert(EXPENSE_TABLE, newExpense.toMap());
-
-  //   return check > 0;
-  // }
-
-  // Future<List<ExpenseModal>> getAllExpense() async {
-  //   List<Map<String, dynamic>> expense = await db.query(EXPENSE_TABLE);
-
-  //   List<ExpenseModal> arrExpense = [];
-
-  //   for (Map<String, dynamic> eachExpense in expense) {
-  //     var eacModal = ExpenseModal.fromMap(eachExpense);
-  //     arrExpense.add(eacModal);
-  //   }
-  //   return arrExpense;
-  // }
 }
-
-//// Expence Funtion

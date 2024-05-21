@@ -16,11 +16,11 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(Duration(seconds: 5), () {
+    Timer(const Duration(seconds: 5), () {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => ExpenseTracker(),
+            builder: (context) => const ExpenseTracker(),
           ));
     });
   }
@@ -33,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
         children: [
           Center(
             child: Text(
-              "Expenso Tracker",
+              "Expenses Tracker",
               style: textStyle20(),
             ),
           )
